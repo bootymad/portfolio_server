@@ -1,0 +1,16 @@
+[
+	{
+		"id": 1,
+		"institution": "The University of Kansas",
+		"school": "School of Business",
+		"degree_certificate": "Bachelor of Science in Business Administration",
+		"year_completed": 2019
+	},
+	{
+		"id": 2,
+		"institution": "The University of Kansas",
+		"school": "Lifelong & Professional Education",
+		"degree_certificate": "Cybersecurity Bootcamp",
+		"year_completed": 2022
+	}
+]

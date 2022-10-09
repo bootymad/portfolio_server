@@ -1,0 +1,26 @@
+[
+	{
+		"company_name": "Grasshopper Bank",
+		"position": "Junior Software Engineer",
+		"from_date": "05/22",
+		"to_date": "Present"
+	},
+	{
+		"company_name": "Grasshopper Bank",
+		"position": "Client Services Specialist",
+		"from_date": "08/21",
+		"to_date": "05/22"
+	},
+	{
+		"company_name": "US Bank",
+		"position": "Client Relationship Consultant III",
+		"from_date": "12/20",
+		"to_date": "08/21"
+	},
+	{
+		"company_name": "Commerce Bank",
+		"position": "Personal Banker",
+		"from_date": "04/17",
+		"to_date": "08/20"
+	}
+]
