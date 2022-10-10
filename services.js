@@ -17,8 +17,8 @@ const experienceService = {
 	writeExperience: async function (body) {
 		try {
 			const data = await this.readExperience();
-			const newId = data.length + 1;
-			data.push({ newId, ...body });
+			const id = data.length + 1;
+			data.push({ id, ...body });
 			const newData = JSON.stringify(data);
 			await fs.writeFile(
 				path.join(process.cwd(), this.experiencePath),
@@ -46,6 +46,25 @@ const experienceService = {
 				}
 			}
 			return false;
+		} catch (e) {
+			throw new Error(e);
+		}
+	},
+	deleteExperience: async function (body) {
+		try {
+			const { id } = body;
+			const data = await this.readExperience();
+			// find match
+			const newData = data.filter((experience) => experience.id !== id);
+			// write new info
+			if (newData.length === 0) {
+				return false;
+			}
+			await fs.writeFile(
+				path.join(process.cwd(), this.experiencePath),
+				JSON.stringify(newData)
+			);
+			return true;
 		} catch (e) {
 			throw new Error(e);
 		}

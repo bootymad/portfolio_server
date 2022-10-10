@@ -63,11 +63,42 @@ router.post("/experience", async (req, res) => {
 
 router.put("/experience", async (req, res) => {
 	try {
-		const updatedData = await experienceService.updateExperience(req.body);
+		// validate
+		const validatedData = await schemas.experienceUpdate.validateAsync(
+			req.body
+		);
+		const updatedData = await experienceService.updateExperience(
+			validatedData
+		);
 		if (updatedData) {
 			return res.status(200).json({
 				message: "experience updated succesfully",
 				updatedData,
+			});
+		}
+		res.status(400).json({
+			message: "no experience with ID " + req.body.id,
+		});
+	} catch (e) {
+		logError(req, e);
+		res.status(500).json({
+			message: "server error",
+			path: req.originalUrl,
+		});
+	}
+});
+
+router.delete("/experience", async (req, res) => {
+	try {
+		// validate
+		const validatedData = await schemas.experienceDelete.validateAsync(
+			req.body
+		);
+		const deleted = await experienceService.deleteExperience(validatedData);
+		if (deleted) {
+			return res.status(200).json({
+				message: "experience deleted succesfully",
+				id: validatedData.id,
 			});
 		}
 		res.status(400).json({
