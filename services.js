@@ -1,6 +1,8 @@
 const fs = require("fs/promises");
 const path = require("path");
 
+const { writeToFile } = require("./utils");
+
 const experienceService = {
 	experiencePath: "./data/experience.json",
 	readExperience: async function () {
@@ -20,10 +22,7 @@ const experienceService = {
 			const id = data.length + 1;
 			data.push({ id, ...body });
 			const newData = JSON.stringify(data);
-			await fs.writeFile(
-				path.join(process.cwd(), this.experiencePath),
-				newData
-			);
+			await writeToFile(newData, this.experiencePath);
 			return body;
 		} catch (e) {
 			throw new Error(e);
@@ -38,10 +37,8 @@ const experienceService = {
 				if (data[i].id === id) {
 					data[i] = { ...data[i], ...body };
 					// write new info
-					await fs.writeFile(
-						path.join(process.cwd(), this.experiencePath),
-						JSON.stringify(data)
-					);
+					const newData = JSON.stringify(data);
+					await writeToFile(newData, this.experiencePath);
 					return data[i];
 				}
 			}
@@ -55,16 +52,16 @@ const experienceService = {
 			const { id } = body;
 			const data = await this.readExperience();
 			// find match
-			const newData = data.filter((experience) => experience.id !== id);
-			// write new info
-			if (newData.length === 0) {
-				return false;
+			const match = data.find((experience) => experience.id === id);
+			if (match) {
+				const newData = data.filter(
+					(experience) => experience.id !== id
+				);
+				// write new info
+				await writeToFile(newData, this.experiencePath);
+				return match;
 			}
-			await fs.writeFile(
-				path.join(process.cwd(), this.experiencePath),
-				JSON.stringify(newData)
-			);
-			return true;
+			return false;
 		} catch (e) {
 			throw new Error(e);
 		}
