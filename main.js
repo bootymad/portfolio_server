@@ -19,5 +19,12 @@ router.get("/", (req, res) => {
 	}
 });
 
+router.use((err, req, res, next) => {
+	if (err) {
+		console.log("ERROR");
+		res.status(400).json({ message: "INVALID ROUTE" });
+	}
+});
+
 module.exports = router;
 // exports.router = router;

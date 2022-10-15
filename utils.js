@@ -7,7 +7,14 @@ const logError = (req, e) => {
 };
 
 const timestamp = (req, res, next) => {
-	console.log("Incoming request...", req.originalUrl, "From:", req.ip);
+	console.log(
+		"Incoming " + req.method + " request...",
+		req.originalUrl,
+		"From:",
+		req.ip
+	);
+	console.log("QUERY", req.query);
+	console.log("PARAMS", req.params);
 	console.log("TIMESTAMP", Date());
 	console.log("----------");
 	next();
@@ -18,6 +25,7 @@ const writeToFile = async (data, filePath) => {
 };
 
 const sendErrorResponse = (error, req, res) => {
+	// joi errors have a details property
 	error.details
 		? res.status(400).json({
 				error: error.details[0].message,

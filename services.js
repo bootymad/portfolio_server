@@ -68,19 +68,4 @@ const experienceService = {
 	},
 };
 
-const educationService = {
-	readEducation: async function () {
-		const educationPath = "./data/education.json";
-		try {
-			const data = await fs.readFile(
-				path.join(process.cwd(), educationPath),
-				"utf-8"
-			);
-			return JSON.parse(data);
-		} catch (e) {
-			throw new Error(e);
-		}
-	},
-};
-
-module.exports = { experienceService, educationService };
+module.exports = experienceService;
