@@ -1,16 +1,13 @@
 const fs = require("fs/promises");
 const path = require("path");
 
-const { writeToFile } = require("../utils");
+const { writeToFile, readFile } = require("../utils");
 
 const experienceService = {
 	experiencePath: "./data/experience.json",
 	readExperience: async function () {
 		try {
-			const data = await fs.readFile(
-				path.join(process.cwd(), this.experiencePath),
-				"utf-8"
-			);
+			const data = await readFile(this.experiencePath);
 			return JSON.parse(data);
 		} catch (e) {
 			throw new Error(e);

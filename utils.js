@@ -24,6 +24,10 @@ const writeToFile = async (data, filePath) => {
 	await fs.writeFile(path.join(process.cwd(), filePath), data);
 };
 
+const readFile = async (filePath) => {
+	return await fs.readFile(path.join(process.cwd(), filePath), "utf-8");
+};
+
 const sendErrorResponse = (error, req, res) => {
 	// joi errors have a details property
 	error.details
@@ -36,4 +40,10 @@ const sendErrorResponse = (error, req, res) => {
 				path: req.originalUrl,
 		  });
 };
-module.exports = { logError, timestamp, writeToFile, sendErrorResponse };
+module.exports = {
+	logError,
+	timestamp,
+	writeToFile,
+	sendErrorResponse,
+	readFile,
+};
