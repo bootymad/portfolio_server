@@ -40,10 +40,16 @@ const sendErrorResponse = (error, req, res) => {
 				path: req.originalUrl,
 		  });
 };
+
+const idGen = (dataLength) => {
+	// returns a random id number
+	return Math.floor(Math.random() * 1000) + dataLength;
+};
 module.exports = {
 	logError,
 	timestamp,
 	writeToFile,
 	sendErrorResponse,
 	readFile,
+	idGen,
 };

@@ -1,6 +1,3 @@
-const fs = require("fs/promises");
-const path = require("path");
-
 const { writeToFile, readFile } = require("../utils");
 
 const experienceService = {

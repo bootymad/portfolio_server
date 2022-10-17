@@ -1,10 +1,12 @@
 const router = require("express").Router();
 const experienceRouter = require("./experienceRouter");
+const educationRouter = require("./educationRouter");
 const { logError, timestamp } = require("./utils");
 
 // middleware
 router.use(timestamp);
 router.use("/experience", experienceRouter);
+router.use("/education", educationRouter);
 
 // api base router
 router.get("/", (req, res) => {
@@ -19,11 +21,11 @@ router.get("/", (req, res) => {
 	}
 });
 
-router.use((err, req, res, next) => {
-	if (err) {
-		console.log("ERROR");
-		res.status(400).json({ message: "INVALID ROUTE" });
-	}
+router.use((req, res) => {
+	res.status(400).json({
+		message: "INVALID API REQUEST",
+		request: `${req.originalUrl} - ${req.method}`,
+	});
 });
 
 module.exports = router;

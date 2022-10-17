@@ -26,7 +26,7 @@ experienceRouter.post(PATH, async (req, res) => {
 			validatedData
 		);
 		res.status(201).json({
-			message: "new experience added",
+			message: "NEW EXPERIENCE ADDED",
 			...dataWritten,
 		});
 	} catch (e) {
