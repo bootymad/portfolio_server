@@ -1,7 +1,7 @@
 const experienceRouter = require("express").Router();
-const experienceService = require("./services");
+const experienceService = require("./services/experience");
 const { logError, sendErrorResponse } = require("./utils");
-const schemas = require("./schemas");
+const schemas = require("./schemas/experience");
 
 const PATH = "/";
 const ID_PATH = "/:id";
@@ -67,20 +67,27 @@ experienceRouter.put(ID_PATH, async (req, res) => {
 });
 
 experienceRouter.delete(ID_PATH, async (req, res) => {
+	const { id } = req.params;
+	if (!id) {
+		return res.status(400).json({
+			message: "MISSING ID",
+		});
+	}
 	try {
 		// validate
-		const validatedData = await schemas.experienceDelete.validateAsync(
-			req.body
-		);
+		const validatedData = await schemas.experienceDelete.validateAsync({
+			...req.body,
+			id,
+		});
 		const deleted = await experienceService.deleteExperience(validatedData);
 		if (deleted) {
 			return res.status(200).json({
-				message: "experience deleted succesfully",
+				message: "DELETED SUCCESSFULLY",
 				deleted,
 			});
 		}
 		res.status(400).json({
-			message: "no experience with ID " + req.body.id,
+			message: "NO MATCHING ID " + id,
 		});
 	} catch (e) {
 		logError(req, e);

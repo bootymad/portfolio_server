@@ -1,7 +1,7 @@
 const fs = require("fs/promises");
 const path = require("path");
 
-const { writeToFile } = require("./utils");
+const { writeToFile } = require("../utils");
 
 const experienceService = {
 	experiencePath: "./data/experience.json",
@@ -54,8 +54,8 @@ const experienceService = {
 			// find match
 			const match = data.find((experience) => experience.id === id);
 			if (match) {
-				const newData = data.filter(
-					(experience) => experience.id !== id
+				const newData = JSON.stringify(
+					data.filter((experience) => experience.id !== id)
 				);
 				// write new info
 				await writeToFile(newData, this.experiencePath);
